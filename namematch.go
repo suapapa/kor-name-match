@@ -2,15 +2,26 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/suapapa/go_hangul"
 )
 
+const namesForm = `
+<html>
+	<body>
+		<h1>이름궁합</h1>
+		<form action="/match/" method="GET">
+			<div>내 이름 <input type="text" name="name1"></div>
+			<div>상대방 이름 <input type="text" name="name2"></div>
+			<div><input type="submit" value="Match"></div>
+		</form>
+	</body>
+</html>
+`
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	body, _ := ioutil.ReadFile("main.html")
-	fmt.Fprintf(w, "%s", body)
+	fmt.Fprint(w, namesForm)
 }
 
 func matchHandler(w http.ResponseWriter, r *http.Request) {
