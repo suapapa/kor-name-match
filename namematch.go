@@ -1,4 +1,4 @@
-package main
+package kor_name_match
 
 import (
 	"fmt"
@@ -6,6 +6,11 @@ import (
 
 	"github.com/suapapa/go_hangul"
 )
+
+func init() {
+	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/match/", matchHandler)
+}
 
 const namesForm = `
 <html>
@@ -29,7 +34,6 @@ func matchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func nameMatch(w http.ResponseWriter, name1, name2 string) {
-	fmt.Fprintf(w, "<html>%s %s<br>", name1, name2)
 	r1 := []rune(name1)
 	r2 := []rune(name2)
 	if len(r1) != 3 || len(r2) != 3 {
@@ -42,8 +46,9 @@ func nameMatch(w http.ResponseWriter, name1, name2 string) {
 	for i, r := range rc {
 		rn[i] = hangul.Stroke(r)
 	}
+	fmt.Fprintf(w, "<html>%s<br>", string(rc))
 	match(w, rn)
-	fmt.Fprintf(w, "</html>")
+	fmt.Fprint(w, "</html>")
 }
 
 func match(w http.ResponseWriter, in []int) {
@@ -56,11 +61,4 @@ func match(w http.ResponseWriter, in []int) {
 	if len(in) > 2 {
 		match(w, r)
 	}
-}
-
-func main() {
-	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/match/", matchHandler)
-
-	http.ListenAndServe(":8080", nil)
 }
