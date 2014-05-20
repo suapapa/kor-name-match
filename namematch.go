@@ -2,6 +2,7 @@ package kor_name_match
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 
 	"github.com/suapapa/go_hangul"
@@ -12,21 +13,10 @@ func init() {
 	http.HandleFunc("/match/", matchHandler)
 }
 
-const namesForm = `
-<html>
-	<body>
-		<h1>이름궁합</h1>
-		<form action="/match/" method="GET">
-			<div>내 이름 <input type="text" name="name1"></div>
-			<div>상대방 이름 <input type="text" name="name2"></div>
-			<div><input type="submit" value="Match"></div>
-		</form>
-	</body>
-</html>
-`
+var templates = template.Must(template.ParseFiles("template/index.html"))
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, namesForm)
+	templates.ExecuteTemplate(w, "index.html", nil)
 }
 
 func matchHandler(w http.ResponseWriter, r *http.Request) {
