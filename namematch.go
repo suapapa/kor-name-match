@@ -38,7 +38,20 @@ func newMatchResult(name1, name2 string) (*MatchResult, error) {
 		return nil, errors.New("Name should be three characters")
 	}
 
+	if !isHangulRunes(r.N1) || !isHangulRunes(r.N2) {
+		return nil, errors.New("Only hangul name is supported")
+	}
+
 	return r, nil
+}
+
+func isHangulRunes(s []rune) bool {
+	for _, c := range s {
+		if !hangul.IsHangul(c) {
+			return false
+		}
+	}
+	return true
 }
 
 func matchHandler(w http.ResponseWriter, r *http.Request) {
