@@ -14,7 +14,7 @@ func init() {
 	http.HandleFunc("/match/", matchHandler)
 }
 
-var templates = template.Must(template.ParseFiles("template/index.html"))
+var templates = template.Must(template.ParseFiles("template/index.html", "template/result.html"))
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	templates.ExecuteTemplate(w, "index.html", nil)
@@ -62,7 +62,7 @@ func matchHandler(w http.ResponseWriter, r *http.Request) {
 	nameMatch(nr)
 
 	// TODO: executeTemplate
-	fmt.Fprintln(w, nr)
+	templates.ExecuteTemplate(w, "result.html", nr)
 }
 
 func nameMatch(nr *MatchResult) {
