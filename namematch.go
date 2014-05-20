@@ -89,9 +89,8 @@ func match(in []int, nr *MatchResult) int {
 	}
 
 	if len(in) > 2 {
-		match(r, nr)
+		return match(r, nr)
 	}
 
-	// TODO: bugfix
 	return in[0]*10 + in[1]
 }
