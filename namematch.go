@@ -21,28 +21,26 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 type MatchResult struct {
-	N1      []rune
-	N2      []rune
+	N1, N2  string
 	Prog    string
 	Percent int
 }
 
 func newMatchResult(name1, name2 string) (*MatchResult, error) {
-	//TODO: N1 and N2 should be string
-	r := &MatchResult{
-		N1: []rune(name1),
-		N2: []rune(name2),
-	}
+	n1, n2 := []rune(name1), []rune(name2)
 
-	if len(r.N1) != 3 || len(r.N2) != 3 {
+	if len(n1) != 3 || len(n2) != 3 {
 		return nil, errors.New("Name should be three characters")
 	}
 
-	if !isHangulRunes(r.N1) || !isHangulRunes(r.N2) {
+	if !isHangulRunes(n1) || !isHangulRunes(n2) {
 		return nil, errors.New("Only hangul name is supported")
 	}
 
-	return r, nil
+	return &MatchResult{
+		N1: name1,
+		N2: name2,
+	}, nil
 }
 
 func isHangulRunes(s []rune) bool {
@@ -68,8 +66,7 @@ func matchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func nameMatch(nr *MatchResult) {
-	r1 := nr.N1
-	r2 := nr.N2
+	r1, r2 := []rune(nr.N1), []rune(nr.N2)
 	rc := []rune{r1[0], r2[0], r1[1], r2[1], r1[2], r2[2]}
 	nr.Prog += fmt.Sprintln(string(rc))
 
