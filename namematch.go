@@ -61,7 +61,6 @@ func matchHandler(w http.ResponseWriter, r *http.Request) {
 
 	nameMatch(nr)
 
-	// TODO: executeTemplate
 	templates.ExecuteTemplate(w, "result.html", nr)
 }
 
