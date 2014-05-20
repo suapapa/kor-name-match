@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>한글 이름 궁합</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <div class="jumbotron">
+            <h1>한글 이름 궁합</h1>
+            <p>
+            재미로 보는 이름 궁합. 이름의 획수에 따른 궁합을 백분율로 계산해 줍니다.
+            한글 석 자의 이름을 입력하세요.
+            </p>
+          </div>
+          <form class="form-horizontal" role="form" action="/match/" method="GET">
+            <div class="form-group">
+              <label for="name1" class="col-sm-2 control-label">내 이름</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="name1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name2" class="col-sm-2 control-label">상대방 이름</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="name2" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">궁합보기</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </body>
+</html>
